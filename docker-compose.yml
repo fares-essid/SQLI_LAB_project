@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: Fares
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: vuln_db
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  webapp:
+    build: ./app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
